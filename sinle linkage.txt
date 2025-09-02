@@ -1,0 +1,20 @@
+import numpy as np
+import matplotlib.pyplot as plt
+from scipy.cluster.hierarchy import dendrogram, linkage
+from sklearn.datasets import load_iris
+
+# Load first 6 iris data points
+data = load_iris().data[:6]
+
+# Proximity matrix
+dist_matrix = np.linalg.norm(data[:, None] - data, axis=2)
+print("Proximity matrix:")
+print(dist_matrix)
+
+# Plot dendrograms
+for method in ['single', 'complete']:
+    dendrogram(linkage(data, method=method))
+    plt.title(f'Dendrogram - {method} linkage')
+    plt.xlabel('Data Points')
+    plt.ylabel('Distance')
+    plt.show()
